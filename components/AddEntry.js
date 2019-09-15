@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { getMetricMetaInfo, timeToString } from "../utils/helpers";
-import Slider from './CustomSlider'
-import Stepper from './Stepper'
+import CustomSlider from './CustomSlider'
+import CustomStepper from './CustomStepper'
 import DateHeader from './DateHeader'
 
 function SubmitBtn ({ onPress }) {
@@ -75,12 +75,12 @@ export default class AddEntry extends Component {
             <View key={key}>
               {getIcon()}
               {type === 'slider'
-                ? <Slider
+                ? <CustomSlider
                     value={value}
                     onChange={(value) => this.slide(key, value)}
                     {...rest}
                   />
-                : <Stepper
+                : <CustomStepper
                     value={value}
                     onIncrement={() => this.increment(key)}
                     onDecrement={() => this.decrement(key)}
