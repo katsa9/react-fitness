@@ -6,6 +6,7 @@ import CustomStepper from './CustomStepper'
 import DateHeader from './DateHeader'
 import TextButton from './TextButton'
 import { Ionicons } from '@expo/vector-icons'
+import { submitEntry, removeEntry } from '../utils/api'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -32,7 +33,7 @@ export default class AddEntry extends Component {
     // Update Redux
     this.setState(() => ({ run: 0, bike: 0, swim: 0, sleep: 0, eat: 0 }))
     // Navigate to home
-    // Save to "DB"
+   submitEntry(key, entry)
     // Clear local notification
   }
 
@@ -68,7 +69,7 @@ export default class AddEntry extends Component {
     const key = timeToString()
     //update Redux
     //Route to home
-    //update Db
+   removeEntry(key)
   }
 
   render() {
