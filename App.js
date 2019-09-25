@@ -71,12 +71,10 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
-        {/* <AppContainer> */}
         <View style={{flex:1}}> 
         <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
           <AppContainer />
         </View>
-        {/* </AppContainer> */}
       </Provider>
     )
   }
