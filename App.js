@@ -4,18 +4,13 @@ import AddEntry from './components/AddEntry'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import { createBottomTabNavigator } from 'react-navigation' 
+import { createBottomTabNavigator } from 'react-navigation-tabs' 
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
-
-function UdaciStatusBar ({backgroundColor, ...props}) {
-  return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  )
-}
+import History from './components/History'
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 const RouteConfigs = {
   History: {
@@ -33,6 +28,8 @@ const RouteConfigs = {
     },
   }
 };
+// const RootStack = createStackNavigator(RouteConfigs);
+// const AppContainer = createAppContainer(RootStack);
 
 const TabNavigatorConfig = {
   navigationOptions: {
@@ -54,20 +51,32 @@ const TabNavigatorConfig = {
   }
 };
 
-const Tabs = Platform.OS === "ios"  //returns a component
-    ? createBottomTabNavigator(RouteConfigs, TabNavigatorConfig)
-    : createMaterialTopTabNavigator(RouteConfigs, TabNavigatorConfig);
+const TabNavigator = createBottomTabNavigator(RouteConfigs, TabNavigatorConfig);
+const AppContainer = createAppContainer(TabNavigator);
+// const Tabs = Platform.OS === "ios"  //returns a component
+//     ? createBottomTabNavigator(RouteConfigs, TabNavigatorConfig)
+//     : createMaterialTopTabNavigator(RouteConfigs, TabNavigatorConfig);
+
+    function UdaciStatusBar ({backgroundColor, ...props}) {
+      return (
+        <View style={{ backgroundColor, height: 50 }}>
+          <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+        </View>
+      )
+    }
 
 export default class App extends React.Component {
-  
+
 // For phones with a notch, you'll need to use a SafeAreaView instead of View and render the UdaciStatusBar before that.
   render() {
     return (
       <Provider store={createStore(reducer)}>
+        {/* <AppContainer> */}
         <View style={{flex:1}}> 
         <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-          <Tabs />
+          <AppContainer />
         </View>
+        {/* </AppContainer> */}
       </Provider>
     )
   }
