@@ -1,13 +1,21 @@
 import React from 'react'
-import { View, Platform } from 'react-native'
+import { View, Platform, StatusBar } from 'react-native'
 import AddEntry from './components/AddEntry'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import { createBottomTabNavigator } from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation' 
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { Constants } from 'expo'
 
+function UdaciStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
 
 const RouteConfigs = {
   History: {
@@ -46,16 +54,18 @@ const TabNavigatorConfig = {
   }
 };
 
-const Tabs = Platform.OS === "ios"
+const Tabs = Platform.OS === "ios"  //returns a component
     ? createBottomTabNavigator(RouteConfigs, TabNavigatorConfig)
     : createMaterialTopTabNavigator(RouteConfigs, TabNavigatorConfig);
 
 export default class App extends React.Component {
-
+  
+// For phones with a notch, you'll need to use a SafeAreaView instead of View and render the UdaciStatusBar before that.
   render() {
     return (
       <Provider store={createStore(reducer)}>
-        <View style={{flex:1}}>
+        <View style={{flex:1}}> 
+        <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
           <Tabs />
         </View>
       </Provider>
