@@ -12,6 +12,7 @@ import History from './components/History'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import EntryDetail from './components/EntryDetail'
+import Live from './components/Live'
 
 const RouteConfigs = {
   History: {
@@ -27,6 +28,13 @@ const RouteConfigs = {
       tabBarLabel: "Add Entry",
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     },
+  },
+  Live: {
+    screen: Live,
+    navigationOptions: {
+      tabBarLabel: 'Live',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor} />
+    }
   }
 };
 // const RootStack = createStackNavigator(RouteConfigs);
