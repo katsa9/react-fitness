@@ -11,6 +11,7 @@ import { Constants } from 'expo'
 import History from './components/History'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import EntryDetail from './components/EntryDetail'
 
 const RouteConfigs = {
   History: {
@@ -53,9 +54,6 @@ const TabNavigatorConfig = {
 
 const TabNavigator = createBottomTabNavigator(RouteConfigs, TabNavigatorConfig);
 const AppContainer = createAppContainer(TabNavigator);
-// const Tabs = Platform.OS === "ios"  //returns a component
-//     ? createBottomTabNavigator(RouteConfigs, TabNavigatorConfig)
-//     : createMaterialTopTabNavigator(RouteConfigs, TabNavigatorConfig);
 
     function UdaciStatusBar ({backgroundColor, ...props}) {
       return (
@@ -65,6 +63,24 @@ const AppContainer = createAppContainer(TabNavigator);
       )
     }
 
+    const MainNavigator = createAppContainer(createStackNavigator({
+      home: {
+        screen: TabNavigator,
+        navigationOptions: {
+          header: null,
+        },
+      },
+      EntryDetail: {
+        screen: EntryDetail,
+        navigationOptions: ({ navigation }) => ({
+          headerTintColor: white,
+          headerStyle: {
+            backgroundColor: purple,
+          },
+        }),
+      },
+    }));    
+
 export default class App extends React.Component {
 
 // For phones with a notch, you'll need to use a SafeAreaView instead of View and render the UdaciStatusBar before that.
@@ -73,7 +89,7 @@ export default class App extends React.Component {
       <Provider store={createStore(reducer)}>
         <View style={{flex:1}}> 
         <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-          <AppContainer />
+          <MainNavigator />
         </View>
       </Provider>
     )
