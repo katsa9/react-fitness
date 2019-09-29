@@ -13,6 +13,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import EntryDetail from './components/EntryDetail'
 import Live from './components/Live'
+import { setLocalNotification } from './utils/helpers'
 
 const RouteConfigs = {
   History: {
@@ -90,6 +91,10 @@ const AppContainer = createAppContainer(TabNavigator);
     }));    
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
 
 // For phones with a notch, you'll need to use a SafeAreaView instead of View and render the UdaciStatusBar before that.
   render() {

@@ -9,7 +9,9 @@ import {
 import {
   getMetricMetaInfo,
   timeToString,
-  getDailyReminderValue
+  getDailyReminderValue,
+  clearLocalNotification,
+  setLocalNotification
 } from '../utils/helpers'
 import CustomSlider from './CustomSlider'
 import CustomStepper from './CustomStepper'
@@ -82,7 +84,8 @@ class AddEntry extends Component {
 
     submitEntry({ key, entry })
 
-    // Clear local notification
+    clearLocalNotification()
+      .then(setLocalNotification)
   }
   reset = () => {
     const key = timeToString()
@@ -99,7 +102,7 @@ class AddEntry extends Component {
   toHome = () => {
     this.props.navigation.dispatch(NavigationActions.back({key: 'AddEntry'}))
   }
-  
+
   render() {
     const metaInfo = getMetricMetaInfo()
 
